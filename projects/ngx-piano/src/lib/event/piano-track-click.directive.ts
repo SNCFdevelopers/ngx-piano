@@ -6,11 +6,11 @@ import { PianoTracker } from '../piano-tracker';
  * This directive only works with buttons
  */
 @Directive({
-  selector: '[appPianoTrackClick]'
+  selector: '[ngxPianoTrackClick]'
 })
 export class PianoTrackClickDirective {
-  @Input() pianoClickName?: string;
-  @Input() pianoActionType?: ActionType;
+  @Input() ngxPianoClickName?: string;
+  @Input() ngxPianoActionType?: ActionType;
 
   constructor(private readonly elementRef: ElementRef, private readonly pianoService: PianoTracker) {
   }
@@ -18,9 +18,9 @@ export class PianoTrackClickDirective {
   @HostListener("click")
   private sendChangeEventToPiano() {
     // default values
-    if (!this.pianoActionType) this.pianoActionType = "ACTION"
-    if (!this.pianoClickName) this.pianoClickName = (this.elementRef.nativeElement as HTMLButtonElement).name ?? ''
+    if (!this.ngxPianoActionType) this.ngxPianoActionType = "ACTION"
+    if (!this.ngxPianoClickName) this.ngxPianoClickName = (this.elementRef.nativeElement as HTMLButtonElement).name ?? ''
 
-    this.pianoService.trackClickEvent(this.pianoActionType, this.pianoClickName);
+    this.pianoService.trackClickEvent(this.ngxPianoActionType, this.ngxPianoClickName);
   }
 }

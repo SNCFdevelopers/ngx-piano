@@ -7,7 +7,7 @@ import { ActionType } from '../../../ngx-piano/src/lib/event/action-type';
     <p>
       page-b works!
     </p>
-    <button appPianoTrackClick pianoActionType="ACTION" pianoClickName="login">Login</button>
+    <button ngxPianoTrackClick ngxPianoActionType="ACTION" ngxPianoClickName="login">Login</button>
   `,
   styles: [
   ]
