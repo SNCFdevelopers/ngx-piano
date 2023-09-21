@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { PageBComponent } from './page-b.component';
 import { PageAComponent } from './page-a.component';
 import { NgxPianoModule } from 'ngx-piano';
+import { TestComponent } from "./test.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     PageBComponent,
-    PageAComponent
+    PageAComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

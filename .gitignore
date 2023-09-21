@@ -44,3 +44,6 @@ Thumbs.db
 # Project specific
 
 demo_site_infos.txt
+/test-results/
+/playwright-report/
+/playwright/.cache/
