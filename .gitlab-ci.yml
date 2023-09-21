@@ -1,0 +1,31 @@
+stages:
+  - build
+  - test
+  - release
+
+build-ngx-piano:
+  stage: build
+  image: node:18-alpine
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/ngx-piano
+
+test-ngx-piano:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.38.0-jammy
+  script:
+    - npm ci
+    - npx playwright test
+release-ngx-piano:
+  stage: release
+  image: node:18-alpine
+  only:
+    - master
+  script:
+    - cd dist/ngx-piano
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+    - npm publish

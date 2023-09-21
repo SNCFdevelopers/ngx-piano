@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:example": "ng serve --project ngx-piano-example",
-    "build": "ng build",
+    "build": "ng build --configuration production --project ngx-piano",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
