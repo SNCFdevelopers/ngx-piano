@@ -15,6 +15,10 @@ import { PianoTrackClickDirective } from './event/piano-track-click.directive';
 declare var window: PianoHolder;
 
 function initializePianoScript(config: NgxPianoConfiguration, routerDataInterceptor: PianoNavigationTracking) {
+  if(config.disabled) {
+    return () => Promise.resolve();
+  }
+
   const document = inject(DOCUMENT);
   const injector = inject(EnvironmentInjector);
 
@@ -45,9 +49,16 @@ function initializePianoScript(config: NgxPianoConfiguration, routerDataIntercep
 }
 
 export interface NgxPianoConfiguration {
-  site: string,
-  collectDomain: string
+  /**
+   * Set to true to disable tracking globally
+   */
+  disabled?: boolean
+
+  site?: string,
+  collectDomain?: string
 }
+
+export const PIANO_CONFIG = new InjectionToken<NgxPianoConfiguration>('PianoConfig');
 
 @NgModule({
   declarations: [PianoTrackClickDirective],
@@ -56,7 +67,6 @@ export interface NgxPianoConfiguration {
 })
 export class NgxPianoModule {
   static forRoot(config: NgxPianoConfiguration): ModuleWithProviders<NgxPianoModule> {
-    const PIANO_CONFIG = new InjectionToken<NgxPianoConfiguration>('PianoConfig');
     return {
       ngModule: NgxPianoModule,
       providers: [

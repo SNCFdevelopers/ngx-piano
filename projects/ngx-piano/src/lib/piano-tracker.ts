@@ -1,6 +1,7 @@
 import { inject, Injectable, NgZone } from '@angular/core';
 import { PianoHolder } from './pa-instance';
 import { ActionType } from './event/action-type';
+import { NgxPianoConfiguration, PIANO_CONFIG } from "./ngx-piano.module";
 
 declare var window: PianoHolder;
 
@@ -17,7 +18,7 @@ export interface RouteData {
 export type NgxPianoEventType = "click.action" | "click.navigation" | "click.exit" | "click.download" | "page.display" | string;
 
 export function createPianoTracker(): PianoTracker {
-  return new PianoTracker(inject(NgZone));
+  return new PianoTracker(inject(NgZone), inject(PIANO_CONFIG));
 }
 
 /**
@@ -30,7 +31,7 @@ export function createPianoTracker(): PianoTracker {
   useFactory: createPianoTracker
 })
 export class PianoTracker {
-  constructor(private readonly ngZone: NgZone) {
+  constructor(private readonly ngZone: NgZone, private readonly pianoConfig: NgxPianoConfiguration) {
   }
 
   /**
@@ -42,7 +43,12 @@ export class PianoTracker {
    */
   public sendEvent(eventType: NgxPianoEventType, data: any) {
     if(!window.pa) {
-      throw new Error("Piano instance not found");
+      if(!this.pianoConfig.disabled) {
+        throw new Error("Piano instance not found");
+      } else {
+        console.warn("Piano disabled in configuration, retaining the following event: ", eventType, data);
+        return;
+      }
     }
     window.pa.sendEvent(eventType, data);
   }

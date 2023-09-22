@@ -87,3 +87,22 @@ export class YourComponent {
     }
 }
 ```
+
+## FAQ
+### How to disable tracking in some environment ?
+
+You may want to disable tracker in different environments to avoid tracking some unwanted
+usage: `local`, `test`, etc.
+
+To do so, just set the `disabled` property of the `forRoot` method to `true`:
+
+```ts
+@NgModule({
+  imports: [
+    NgxPianoModule.forRoot({
+      disabled: true
+    })
+  ]
+})
+export class AppModule { }
+```
