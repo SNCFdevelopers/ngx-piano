@@ -1,12 +1,28 @@
 {
   "name": "@sncf/ngx-piano",
   "version": "0.0.1",
+  "description": "This library aims to provide an integration for the Piano Analytics product into Angular applications",
+  "keywords": [
+    "piano-analytics",
+    "analytics",
+    "angular"
+  ],
   "peerDependencies": {
     "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0",
+    "@angular/core": "^16.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/SNCF/ngx-piano",
+    "directory": "projects/ngx-piano"
+  },
+  "homepage": "https://gitlab.com/SNCF/ngx-piano#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "sideEffects": false
 }
