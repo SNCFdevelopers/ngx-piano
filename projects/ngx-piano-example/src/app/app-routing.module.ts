@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'test',
     component: TestComponent
+  },
+  {
+    path: 'excluded-route',
+    component: PageAComponent,
   }
 ];
 

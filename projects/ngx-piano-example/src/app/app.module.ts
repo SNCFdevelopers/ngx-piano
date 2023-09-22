@@ -18,7 +18,11 @@ import { TestComponent } from "./test.component";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxPianoModule.forRoot({site: 'your-site-id', collectDomain: 'your-collect-domain'})
+    NgxPianoModule.forRoot({
+      site: 'your-site-id',
+      collectDomain: 'your-collect-domain',
+      excludedRoutePatterns: ['excluded*']
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

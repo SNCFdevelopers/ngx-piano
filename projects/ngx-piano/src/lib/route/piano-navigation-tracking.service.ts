@@ -2,19 +2,19 @@ import { inject, Injectable } from '@angular/core';
 import { PianoTracker, RouteData } from '../piano-tracker';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { NgxPianoConfiguration, PIANO_CONFIG } from "../ngx-piano.module";
 
 // @ts-ignore
 function isNavigationEnd(event: Event): event is NavigationEnd {
   return event instanceof NavigationEnd;
 }
 
-// TODO: voir pour mettre tout ce qui concerne l'interception des requêtes dans un module à part
-
 export function createRouteDataInterceptor(): PianoNavigationTracking {
   const pianoTracker = inject(PianoTracker);
   const router = inject(Router);
+  const config: NgxPianoConfiguration | null | undefined = inject(PIANO_CONFIG);
 
-  return new PianoNavigationTracking(pianoTracker, router);
+  return new PianoNavigationTracking(pianoTracker, router, config);
 }
 
 @Injectable({
@@ -22,8 +22,9 @@ export function createRouteDataInterceptor(): PianoNavigationTracking {
   useFactory: createRouteDataInterceptor
 })
 export class PianoNavigationTracking {
-  constructor(private readonly pianoTracker: PianoTracker, private readonly router: Router) {
-  }
+  constructor(private readonly pianoTracker: PianoTracker,
+              private readonly router: Router,
+              private readonly pianoConfig: NgxPianoConfiguration | null | undefined) { }
 
   beforePageTrack(event: NavigationEnd) {
     const routeData: RouteData = {
@@ -41,6 +42,9 @@ export class PianoNavigationTracking {
       filter(isNavigationEnd)
       // @ts-ignore
     ).subscribe((event: NavigationEnd) => {
+      if(this.pianoConfig?.excludedRoutePatterns?.some(rx => event.urlAfterRedirects.match(rx))) {
+        return;
+      }
       this.beforePageTrack(event);
     });
   }

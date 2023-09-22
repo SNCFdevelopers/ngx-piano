@@ -59,5 +59,16 @@ test.describe('Test suite with piano script', () => {
       await page.getByTestId('send-custom-event-service-call').click();
       await pianoCustomEventRequestPromise;
     });
+  test('should not send an nav event when navigate on excluded routes with the Angular router', async ({page}) => {
+    await page.goto('http://localhost:4200/excluded-route');
+    const pianoEventRequestPromise = page.waitForRequest(request => {
+        return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+          && request.postDataJSON()['events'][0]['name'] == 'page.display'
+          && request.postDataJSON()['events'][0]['data']['page'] == '/excluded-route');
+      }
+      , {timeout: 5000});
+    let request = await pianoEventRequestPromise.catch(() => {});
+    expect(request).toBeUndefined();
+  });
 });
 

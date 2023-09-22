@@ -33,9 +33,9 @@ export class AppModule {
 
 By importing `NgxPianoModule`, the different routes are automaticaly track. When `NgxPianoModule` bootstraping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
 
-### Tracking events
+## Tracking events
 
-#### Click event
+### Click event
 
 A directive exists for catching click's event named `ngxPianoClick`. You can track click events directly from the template
 
@@ -105,4 +105,19 @@ To do so, just set the `disabled` property of the `forRoot` method to `true`:
   ]
 })
 export class AppModule { }
+```
+### How to exclude a route from tracking ?
+
+If you want to exclude a route from tracking, use `excludedRoutePatterns` option of NgxPianoModule configuration.
+
+```ts
+@NgModule({
+    imports: [
+        NgxPianoModule.forRoot({
+            site: 'your-site-id',
+            collectDomain: 'your-collect-domain',
+            excludedRoutePatterns: ['excluded*']
+        })
+    ]})
+export class AppModule {}
 ```
