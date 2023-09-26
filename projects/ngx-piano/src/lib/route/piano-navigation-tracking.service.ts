@@ -28,9 +28,8 @@ export class PianoNavigationTracking {
   beforePageTrack(event: NavigationEnd) {
     const routeData: RouteData = {
       url: event.url,
-      pageTitle: event.url // TODO: extract title
     }
-    this.pianoTracker.trackNavigation(routeData);
+    this.pianoTracker.sendNavigationEvent(routeData);
   }
 
   /**

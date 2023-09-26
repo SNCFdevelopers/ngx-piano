@@ -21,6 +21,6 @@ export class PianoTrackClickDirective {
     if (!this.ngxPianoActionType) this.ngxPianoActionType = "ACTION"
     if (!this.ngxPianoClickName) this.ngxPianoClickName = (this.elementRef.nativeElement as HTMLButtonElement).name ?? ''
 
-    this.pianoService.trackClickEvent(this.ngxPianoActionType, this.ngxPianoClickName);
+    this.pianoService.sendClickEvent(this.ngxPianoActionType, this.ngxPianoClickName);
   }
 }

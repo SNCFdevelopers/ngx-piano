@@ -47,5 +47,17 @@ test.describe('Test suite with piano script', () => {
         await page.getByText('Add Action').click();
         await pianoNavToTestRouteEventRequestPromise;
     })
+
+    test('should send a custom event when call sendEvent method of PianoTracker service', async ({page}) => {
+      await page.goto('http://localhost:4200/test');
+      const pianoCustomEventRequestPromise = page.waitForRequest(request => {
+          return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+            && request.postDataJSON()['events'][0]['name'] == 'search.value'
+            && request.postDataJSON()['events'][0]['data']['value'] == 'some_value');
+        }
+        , {timeout: 10_000});
+      await page.getByTestId('send-custom-event-service-call').click();
+      await pianoCustomEventRequestPromise;
+    });
 });
 
