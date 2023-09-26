@@ -12,6 +12,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add possibility to initialize the NgxPianoModule with the site id and the collector url of the project
 - Track navigation events and send them to the Piano collector server
 - Track click events and send them to the Piano collector server
+- Add possibility to send piano event throw a service
+- Add possibility to disable piano tracking
+- Add possibility to exclude certain routes from piano navigation tracking
 
 ### Changed
 
