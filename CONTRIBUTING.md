@@ -5,7 +5,7 @@
     git checkout develop
     git pull
     ```
-2. Then, update the changelog by replacing the 'Unreleased' section with the released version number
+2. Then, update the changelog by replacing the 'Unreleased' section with the released version. Remove all unused sections. Don't forget to copy and paste the changelog template at the end of the file to the top of the file.
 3. Update version in package.json of ngx-piano project (`projects/ngx-piano/package.json`)
 4. Commit the changes
     ```shell
