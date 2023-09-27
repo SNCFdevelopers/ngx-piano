@@ -33,9 +33,9 @@ export class AppModule {
 
 By importing `NgxPianoModule`, the different routes are automaticaly track. When `NgxPianoModule` bootstraping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
 
-## Tracking events
+### Tracking events
 
-### Click event
+#### Click event
 
 A directive exists for catching click's event named `ngxPianoClick`. You can track click events directly from the template
 
