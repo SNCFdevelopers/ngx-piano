@@ -121,3 +121,8 @@ If you want to exclude a route from tracking, use `excludedRoutePatterns` option
     ]})
 export class AppModule {}
 ```
+
+
+## Contributing
+
+[See guide here](./CONTRIBUTING.md)
