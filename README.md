@@ -41,7 +41,7 @@ A directive exists for catching click's event named `ngxPianoClick`. You can tra
 
 ```html
 
-<button ngxPianoClick ngxPianoClickName="Login" ngxPianoClickActionType="ACTION">
+<button ngxPianoTrackClick ngxPianoClickName="Login" ngxPianoClickActionType="ACTION">
   Your button text
 </button>
 ```
