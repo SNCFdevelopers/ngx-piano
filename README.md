@@ -136,6 +136,8 @@ export class AppModule { }
 
 If you want to exclude a route from tracking, use `excludedRoutePatterns` option of NgxPianoModule configuration.
 
+Imagine you want to exclude all routes starting with `excluded` from tracking, you can do it like this:
+
 ```ts
 @NgModule({
     imports: [
