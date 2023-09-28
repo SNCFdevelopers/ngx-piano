@@ -54,8 +54,8 @@ export interface NgxPianoConfiguration {
    */
   disabled?: boolean
 
-  site?: string,
-  collectDomain?: string,
+  site: string,
+  collectDomain: string,
   /**
    * Regular expressions to match routes that should be excluded from tracking.
    */
