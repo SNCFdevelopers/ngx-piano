@@ -35,6 +35,10 @@ function initializePianoScript(config: NgxPianoConfiguration, routerDataIntercep
         document.body.insertBefore(scriptElementToAppend, firstScriptElement);
       }
     });
+    scriptElementToAppend.addEventListener('error', () => {
+      console.error(`Piano Analytics could not be reached. The analytics script ${scriptElementToAppend.src} is blocked. Verify you not use an tool like uBlock Origin that blocks external scripts.`);
+      resolve();
+    });
     scriptElementToAppend.addEventListener('load', event => {
       if(window.pa) {
         window.pa.setConfigurations({

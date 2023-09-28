@@ -26,7 +26,7 @@ for now removed features.
 
 ### Fixed
 
-for any bug fixes.
+- Fix issue with the infinite loading of piano script which caused the app to not load
 
 ### Security
 
