@@ -4,7 +4,7 @@ This library aims to provide an integration for the Piano Analytics product into
 
 ## Installation
 
-- Run `npm install ngx-piano`
+- Run `npm install @sncf/ngx-piano`
 - Import `ngx-piano-module` into your target module
 - In `forRoute` static method of NgxPianoModule define the `siteId` and the `collectDomain`
 
