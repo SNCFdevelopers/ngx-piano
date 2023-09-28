@@ -89,6 +89,32 @@ export class YourComponent {
 ```
 
 ## FAQ
+### How to handle multi NgxPianoConfiguration in your app module ?
+
+In your app module
+```ts
+const isProduction = true;
+
+const configNonProd: NgxPianoConfiguration = {
+  site: "non-prod",
+  collectDomain: 'collect-domain'
+}
+
+const configProd: NgxPianoConfiguration = {
+  site: "prod",
+  collectDomain: 'collect-domain'
+}
+
+const configToUse: NgxPianoConfiguration = isProduction ? configProd : configHorsProd;
+
+@NgModule({
+  imports: [
+    NgxPianoModule.forRoot(configToUse)
+  ]
+})
+export class AppModule { }
+```
+
 ### How to disable tracking in some environment ?
 
 You may want to disable tracker in different environments to avoid tracking some unwanted
