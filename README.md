@@ -16,7 +16,7 @@ import {
 @NgModule({
   imports: [
     NgxPianoModule.forRoot({
-      siteId: 123456, // replace with your id
+      site: "123456", // replace with your id
       collectDomain: "piano.example.com" // replace with your collect domain
     })
   ],
