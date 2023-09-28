@@ -30,8 +30,33 @@ export class AppModule {
 ## Usage
 
 ### Tracking page view
-
 By importing `NgxPianoModule`, the different routes are automatically track. When `NgxPianoModule` bootstrapping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
+
+#### Adding info to the page view
+#### Using route data
+
+You can add info to the page view by using the `data` property of the route.
+💡By defining `ngxPianoRouteData` as a property of the route data, it is not anymore the URL that is sent as page title but the value of the property `page` of the `ngxPianoRouteData` object.
+
+```ts
+import { NgxPianoRouteMetaData } from "ngx-piano";
+
+const routes: Routes = [
+  {
+    path: 'reservation',
+    component: 'ReservationComponent',
+    data: {
+      piano: {
+        ngxPianoRouteData: {
+          page: 'Reservation',
+          page_chapter1: 'Home',
+          page_chapter2: 'Train'
+        } as NgxPianoRouteMetaData // IMPORTANT to have completion and to respect NgxPianoRouteData attributes
+      }
+    }
+  }
+];
+```
 
 ### Tracking events
 [What is an event?](https://support.piano.io/hc/fr/articles/4465959709202-%C3%89v%C3%A9nements#Définition)

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageAComponent } from './page-a.component';
 import { PageBComponent } from './page-b.component';
 import { TestComponent } from "./test.component";
+import { NgxPianoRouteMetaData } from "ngx-piano";
 
 const routes: Routes = [
   {
@@ -15,7 +16,17 @@ const routes: Routes = [
   },
   {
     path: 'test',
-    component: TestComponent
+    component: TestComponent,
+  },
+  {
+    path: 'ngx-piano-router-metadata',
+    component: TestComponent,
+    data: {
+      ngxPianoRouteData: {
+        page: "Page de test route metadata",
+        page_chapter1: 'Test',
+      } as NgxPianoRouteMetaData
+    }
   },
   {
     path: 'excluded-route',

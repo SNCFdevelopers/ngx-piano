@@ -133,5 +133,17 @@ test.describe('Test suite with piano script', () => {
     let secondRequestDownloadClick = await pianoSecondRequestDownloadClickPromise;
     expect(secondRequestDownloadClick).toBeDefined();
   });
+  test('should send a nav event with custom title when navigate to "ngx-piano-router-metadata" route', async ({page}) => {
+    await page.goto('http://localhost:4200/test');
+    const pianoNavToTestRouteEventRequestPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'page.display'
+        && request.postDataJSON()['events'][0]['data']['page'] == 'Page de test route metadata'
+        && request.postDataJSON()['events'][0]['data']['page_chapter1'] == 'Test'
+      );
+    }, {timeout: 10_000});
+    await page.goto('http://localhost:4200/ngx-piano-router-metadata');
+    await pianoNavToTestRouteEventRequestPromise;
+  });
 });
 

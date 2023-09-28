@@ -2,6 +2,7 @@ import { inject, Injectable, NgZone } from '@angular/core';
 import { PianoHolder } from './pa-instance';
 import { NgxPianoActionType } from './event/ngx-piano-action-type';
 import { NgxPianoConfiguration, PIANO_CONFIG } from "./ngx-piano.module";
+import { NgxPianoNavigationEventData } from "./route/piano-navigation-tracking.service";
 
 declare var window: PianoHolder;
 
@@ -95,11 +96,9 @@ export class PianoTracker {
    * You don't have to directly call this method. It is called automatically when the route changes.
    * @param routeData data related to the route event
    */
-  sendNavigationEvent(routeData: RouteData) {
+  sendNavigationEvent(routeData: NgxPianoNavigationEventData) {
     this.ngZone.runOutsideAngular(() => {
-      this.sendEvent('page.display', {
-        'page': routeData.url
-      });
+      this.sendEvent('page.display', routeData);
     });
   }
 

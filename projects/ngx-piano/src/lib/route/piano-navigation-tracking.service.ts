@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { PianoTracker, RouteData } from '../piano-tracker';
-import { NavigationEnd, Router } from '@angular/router';
+import { PianoTracker } from '../piano-tracker';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { NgxPianoConfiguration, PIANO_CONFIG } from "../ngx-piano.module";
+import { NgxPianoRouteMetaData } from "./ngx-piano-route-meta-data";
 
 // @ts-ignore
 function isNavigationEnd(event: Event): event is NavigationEnd {
@@ -17,6 +18,10 @@ export function createRouteDataInterceptor(): PianoNavigationTracking {
   return new PianoNavigationTracking(pianoTracker, router, config);
 }
 
+export type NgxPianoNavigationEventData = {
+  page: string
+}
+
 @Injectable({
   providedIn: "root",
   useFactory: createRouteDataInterceptor
@@ -26,11 +31,41 @@ export class PianoNavigationTracking {
               private readonly router: Router,
               private readonly pianoConfig: NgxPianoConfiguration | null | undefined) { }
 
-  beforePageTrack(event: NavigationEnd) {
-    const routeData: RouteData = {
-      url: event.url,
+  /**
+   * Returns the current activated route snapshot or null if there is none
+   * Iterates through the children is mandatory because the router state snapshot is a tree structure which represents
+   * a sort of navigation stack
+   *
+   * @returns {ActivatedRouteSnapshot | null} The current activated route snapshot or null if there is none
+   * @private
+   */
+  private get currentActivatedRouteSnapshot(): ActivatedRouteSnapshot | null {
+    // First route of the navigation stack
+    let child = this.router.routerState.snapshot.root.firstChild;
+    // Iterate through the children until the last child of the navigation stack
+    while(child?.firstChild) {
+      child = child.firstChild;
     }
-    this.pianoTracker.sendNavigationEvent(routeData);
+    return child;
+  }
+
+  trackNavigation(event: NavigationEnd) {
+    const currentActivatedRouteSnapshot = this.currentActivatedRouteSnapshot;
+    let ngxPianoRouteData = currentActivatedRouteSnapshot ? this.getRouteNgxPianoData(currentActivatedRouteSnapshot) : undefined;
+
+    let pianoInfos: NgxPianoNavigationEventData = {
+      page: event.urlAfterRedirects
+    }
+    pianoInfos = {
+      ...pianoInfos,
+      ...ngxPianoRouteData
+    };
+
+    this.pianoTracker.sendNavigationEvent(pianoInfos);
+  }
+
+  protected getRouteNgxPianoData(route: ActivatedRouteSnapshot): NgxPianoRouteMetaData | undefined {
+    return route.data['ngxPianoRouteData'];
   }
 
   /**
@@ -45,7 +80,7 @@ export class PianoNavigationTracking {
       if(this.pianoConfig?.excludedRoutePatterns?.some(rx => event.urlAfterRedirects.match(rx))) {
         return;
       }
-      this.beforePageTrack(event);
+      this.trackNavigation(event);
     });
   }
 }
