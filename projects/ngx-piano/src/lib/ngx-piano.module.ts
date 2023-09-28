@@ -59,7 +59,7 @@ export interface NgxPianoConfiguration {
   /**
    * Regular expressions to match routes that should be excluded from tracking.
    */
-  excludedRoutePatterns: string[]
+  excludedRoutePatterns?: string[]
 }
 
 export const PIANO_CONFIG = new InjectionToken<NgxPianoConfiguration>('PianoConfig');

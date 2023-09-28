@@ -9,11 +9,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-for new features.
+- Make `site` and `collectDomain` in `NgxPianoModule.forRoot` method as mandatory
 
 ### Changed
 
-for changes in existing functionality.
+- Make `excludedRoutePatterns` optional in `NgxPianoModule.forRoot` method
 
 ### Deprecated
 
