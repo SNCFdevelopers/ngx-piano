@@ -46,7 +46,7 @@ A directive exists for catching click's event named `ngxPianoClick`. You can tra
 </button>
 ```
 
-`ngxPianoClickActionType` is an input of the directive of type `NgxActionClickType` which is an union type with the different possible values.
+`ngxPianoClickActionType` is an input of the directive of type `NgxPianoActionType` which is an union type with the different possible values.
 
 #### Custom event
 

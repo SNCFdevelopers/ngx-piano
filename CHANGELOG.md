@@ -15,6 +15,7 @@ for new features.
 
 - Make `excludedRoutePatterns` optional in `NgxPianoModule.forRoot` method
 - Make `site` and `collectDomain` in `NgxPianoModule.forRoot` method as mandatory
+- The type `ActionType` is now `NgxPianoActionType`
 
 ### Deprecated
 

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActionType } from '../../../ngx-piano/src/lib/event/action-type';
 
 @Component({
   selector: 'app-page-b',

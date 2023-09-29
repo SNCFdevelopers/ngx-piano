@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
-import { ActionType } from './action-type';
+import { NgxPianoActionType } from './ngx-piano-action-type';
 import { PianoTracker } from '../piano-tracker';
 
 /**
@@ -10,7 +10,7 @@ import { PianoTracker } from '../piano-tracker';
 })
 export class PianoTrackClickDirective {
   @Input() ngxPianoClickName?: string;
-  @Input() ngxPianoActionType?: ActionType;
+  @Input() ngxPianoActionType?: NgxPianoActionType;
 
   constructor(private readonly elementRef: ElementRef, private readonly pianoService: PianoTracker) {
   }

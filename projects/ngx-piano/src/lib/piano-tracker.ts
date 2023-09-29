@@ -1,6 +1,6 @@
 import { inject, Injectable, NgZone } from '@angular/core';
 import { PianoHolder } from './pa-instance';
-import { ActionType } from './event/action-type';
+import { NgxPianoActionType } from './event/ngx-piano-action-type';
 import { NgxPianoConfiguration, PIANO_CONFIG } from "./ngx-piano.module";
 
 declare var window: PianoHolder;
@@ -72,7 +72,7 @@ export class PianoTracker {
    * @param actionType the type of the action to send
    * @param name the name of the action to send. It describes the action performed by the user
    */
-  sendClickEvent(actionType: ActionType, name: string) {
+  sendClickEvent(actionType: NgxPianoActionType, name: string) {
     switch (actionType) {
       case "DOWNLOAD":
         this.sendEvent("click.download", {
