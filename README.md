@@ -31,13 +31,14 @@ export class AppModule {
 
 ### Tracking page view
 
-By importing `NgxPianoModule`, the different routes are automaticaly track. When `NgxPianoModule` bootstraping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
+By importing `NgxPianoModule`, the different routes are automatically track. When `NgxPianoModule` bootstrapping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
 
 ### Tracking events
+[What is an event?](https://support.piano.io/hc/fr/articles/4465959709202-%C3%89v%C3%A9nements#Définition)
 
 #### Click event
 
-A directive exists for catching click's event named `ngxPianoClick`. You can track click events directly from the template
+A directive exists for catching click's event named `ngxPianoTrackClick`. You can track click events directly from the template
 
 ```html
 
@@ -46,14 +47,18 @@ A directive exists for catching click's event named `ngxPianoClick`. You can tra
 </button>
 ```
 
-`ngxPianoClickActionType` is an input of the directive of type `NgxPianoActionType` which is an union type with the different possible values.
+`ngxPianoActionType` is an input of the directive of type `NgxPianoActionType` which is a union type with the different possible values.
 
-#### Custom event
+#### Custom events
 
-You can track custom events by using the `NgxPianoService` and it's `trackEvent` method.
+[Two types of events exist](https://support.piano.io/hc/fr/articles/4465959709202-%C3%89v%C3%A9nements#Cr%C3%A9erun%C3%A9v%C3%A9nement:~:text=Standard%20%26%20Custom,%C3%A0%20votre%20organisation.):
+- standard which are defined by Piano (`page.display`, `click.action`, `click.download`, ...)
+- custom which are specific events that you have in your Data Model 
+
+You can track custom events by using the `NgxPianoService` and it's `sendEvent(...)` method.
 
 - Inject `NgxPianoService` into your component
-- Call the `trackEvent` of `NgxPianoService` with the event type and the event data
+- Call the `sendEvent(...)` method of `NgxPianoService` with the event type you want to track and the event data 
 
 ```ts
 import {
@@ -79,8 +84,8 @@ export class YourComponent {
     onSearchBlur(event: FocusEvent) {
         const input = event.target as HTMLInputElement;
 
-        const customNgxPianoEventType: NgxPianoEventType = "search.value"; // custom event type, not a standard event type
-        this.pianoService.trackEvent(customNgxPianoEventType, {
+        const customNgxPianoEventType: NgxPianoEventType = "search.value"; // custom event type, not a standard event type => ⚠️MUST BE DEFINED IN YOUR DATA MODEL⚠️
+        this.pianoService.sendEvent(customNgxPianoEventType, {
             name: input.name,
             value: input.value
         });
@@ -132,6 +137,7 @@ To do so, just set the `disabled` property of the `forRoot` method to `true`:
 })
 export class AppModule { }
 ```
+
 ### How to exclude a route from tracking ?
 
 If you want to exclude a route from tracking, use `excludedRoutePatterns` option of NgxPianoModule configuration.
@@ -149,6 +155,12 @@ Imagine you want to exclude all routes starting with `excluded` from tracking, y
     ]})
 export class AppModule {}
 ```
+
+### I don't find my event in my dashboard
+
+You sent a custom event, the request was well send, but you don't retrieve your event on your dashboard?
+
+[Check if you have these custom event on your Data Model](https://management.atinternet-solutions.com/#/data-model/events/list/). If not, your event appears in `Events` section on the tab `Excluded Events` on your collect explorer site.
 
 
 ## Contributing

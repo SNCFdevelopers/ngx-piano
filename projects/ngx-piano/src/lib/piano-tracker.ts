@@ -12,8 +12,9 @@ export interface RouteData {
 /**
  * Piano event type can be a standard event or a custom event.
  * - Standard events are predefined events that are sent to the collection domain.
- * - Custom events are events that you define yourself.
+ * - Custom events are events **that you have in your Data Model**. Custom events are specific to your organization
  * @see https://developers.atinternet-solutions.com/piano-analytics/data-collection/how-to-send-events/standard-events
+ * @see https://support.piano.io/hc/fr/articles/4465959709202-%C3%89v%C3%A9nements
  */
 export type NgxPianoEventType = "click.action" | "click.navigation" | "click.exit" | "click.download" | "page.display" | string;
 
