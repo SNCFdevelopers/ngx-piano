@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+
+for new features.
+
+### Changed
+
+for changes in existing functionality.
+
+### Deprecated
+
+for soon-to-be removed features.
+
+### Removed
+
+for now removed features.
+
+### Fixed
+
+for any bug fixes.
+
+### Security
+
+in case of vulnerabilities.
+
+## 1.0.0-rc.0
 
 ### Added
 
@@ -19,21 +44,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Make `site` and `collectDomain` in `NgxPianoModule.forRoot` method as mandatory
 - The type `ActionType` is now `NgxPianoActionType`
 
-### Deprecated
-
-for soon-to-be removed features.
-
-### Removed
-
-for now removed features.
-
 ### Fixed
 
 - Fix issue with the infinite loading of piano script which caused the app to not load
-
-### Security
-
-in case of vulnerabilities.
 
 ## [0.0.1] - 2023-09-27
 
