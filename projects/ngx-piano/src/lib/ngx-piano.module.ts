@@ -23,7 +23,7 @@ function initializePianoScript(config: NgxPianoConfiguration, routerDataIntercep
   const injector = inject(EnvironmentInjector);
 
   const scriptElementToAppend = document.createElement('script');
-  scriptElementToAppend.src = "https://tag.aticdn.net/piano-analytics.js";
+  scriptElementToAppend.src = config.pianoScriptUrl ? config.pianoScriptUrl : "https://tag.aticdn.net/piano-analytics.js";
   scriptElementToAppend.type = 'text/javascript';
   scriptElementToAppend.defer = true; // downloads during HTML parsing and will only execute after parsing
   scriptElementToAppend.async = true;  // downloads the file during parsing and will pause the HTML parser to execute it when it has finished downloading
@@ -47,6 +47,9 @@ function initializePianoScript(config: NgxPianoConfiguration, routerDataIntercep
         });
         routerDataInterceptor.initialize();
       }
+      else {
+        console.error("Piano script was not loaded correctly. Verify you provided a valid script.");
+      }
       resolve();
     })
   });
@@ -63,7 +66,11 @@ export interface NgxPianoConfiguration {
   /**
    * Regular expressions to match routes that should be excluded from tracking.
    */
-  excludedRoutePatterns?: string[]
+  excludedRoutePatterns?: string[],
+  /**
+   * Provide piano script URL to load the Piano script from a specific host.
+   */
+  pianoScriptUrl?: string
 }
 
 export const PIANO_CONFIG = new InjectionToken<NgxPianoConfiguration>('PianoConfig');

@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Add possibility to set common properties (key: value) for one or all events
+- Add possibility to let client project define which piano script it wants to use
 
 ### Changed
 

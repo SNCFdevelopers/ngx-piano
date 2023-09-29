@@ -221,6 +221,23 @@ You sent a custom event, the request was well send, but you don't retrieve your 
 
 The value defined in the `setProperty(...)` method override the value defined in properties param of `sendEvent(...)` method
 
+### I host my own Piano script, how to provide it to the library ?
+
+If you host your own Piano script, you can provide it to the library by using the `pianoScriptUrl` option of NgxPianoModule configuration.
+By default, the library will use the last version of Piano script hosted by Piano.
+
+```ts
+@NgModule({
+    imports: [
+        NgxPianoModule.forRoot({
+            site: 'your-site-id',
+            collectDomain: 'your-collect-domain',
+            pianoScriptUrl: 'https://your-piano-script-url' // must be valid otherwise you will get an error in the console
+        })
+    ]})
+export class AppModule {}
+```
+
 ## Contributing
 
 [See guide here](./CONTRIBUTING.md)
