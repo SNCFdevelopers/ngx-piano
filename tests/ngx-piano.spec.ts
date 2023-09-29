@@ -48,7 +48,7 @@ test.describe('Test suite with piano script', () => {
         await pianoNavToTestRouteEventRequestPromise;
     })
 
-    test('should send a custom event when call sendEvent method of PianoTracker service', async ({page}) => {
+  test('should send a custom event when call sendEvent method of PianoTracker service', async ({page}) => {
       await page.goto('http://localhost:4200/test');
       const pianoCustomEventRequestPromise = page.waitForRequest(request => {
           return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
@@ -69,6 +69,69 @@ test.describe('Test suite with piano script', () => {
       , {timeout: 5000});
     let request = await pianoEventRequestPromise.catch(() => {});
     expect(request).toBeUndefined();
+  });
+
+  test('should set not persistent property correctly and not send a second event', async ({page}) => {
+    await page.goto('http://localhost:4200/test');
+
+    let pianoFirstActionClickRequestPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'click.action'
+        && request.postDataJSON()['events'][0]['data']['click'] == 'some_action'
+        && request.postDataJSON()['events'][0]['data']['property_name'] === 'value'
+      );
+    }, {timeout: 10_000});
+    await page.getByTestId('set-not-persistent-property-service-call').click();
+    await page.getByText('Add Action').click();
+    let pianoFirstRequestActionClick = await pianoFirstActionClickRequestPromise;
+    expect(pianoFirstRequestActionClick).toBeDefined();
+
+    let pianoSecondActionClickRequestPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'click.action'
+        && request.postDataJSON()['events'][0]['data']['click'] == 'some_action'
+        && request.postDataJSON()['events'][0]['data']['property_name'] === 'value'
+      );
+    }, {timeout: 5000}).catch(() => {});
+    await page.getByText('Add Action').click();
+    let pianoSecondRequestClickActionClick = await pianoSecondActionClickRequestPromise;
+    expect(pianoSecondRequestClickActionClick).toBeUndefined();
+  });
+
+  test('should set persistent property correctly and only for specific events', async ({page}) => {
+    await page.goto('http://localhost:4200/test');
+    await page.getByTestId('set-persistent-property-service-call').click();
+
+    await page.getByText('Add Action').click();
+    const pianoRequestActionClickPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'click.action'
+        && request.postDataJSON()['events'][0]['data']['click'] == 'some_action'
+        && request.postDataJSON()['events'][0]['data']['property_name'] === 'value')
+    }, {timeout: 5000});
+    let firstRequestActionClick = await pianoRequestActionClickPromise.catch(() => {});
+    expect(firstRequestActionClick).toBeUndefined();
+
+
+    let pianoRequestDownloadClickPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'click.download'
+        && request.postDataJSON()['events'][0]['data']['click'] == 'pdf'
+        && request.postDataJSON()['events'][0]['data']['property_name'] === 'value')
+    }, {timeout: 10_000});
+    await page.getByText('Add Download Action').click();
+    let firstRequestDownloadClick = await pianoRequestDownloadClickPromise;
+    expect(firstRequestDownloadClick).toBeDefined();
+
+    let pianoSecondRequestDownloadClickPromise = page.waitForRequest(request => {
+      return (request.url().startsWith('https://your-collect-domain/event?s=your-site-id')
+        && request.postDataJSON()['events'][0]['name'] == 'click.download'
+        && request.postDataJSON()['events'][0]['data']['click'] == 'pdf'
+        && request.postDataJSON()['events'][0]['data']['property_name'] === 'value')
+    }, {timeout: 10_000});
+    await page.getByText('Add Download Action').click();
+    let secondRequestDownloadClick = await pianoSecondRequestDownloadClickPromise;
+    expect(secondRequestDownloadClick).toBeDefined();
   });
 });
 

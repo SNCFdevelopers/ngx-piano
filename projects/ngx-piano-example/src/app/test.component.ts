@@ -9,8 +9,15 @@ import { PianoTracker } from 'ngx-piano';
         <a routerLink="/b">navigate to Page B</a>
       </div>
       <button ngxPianoTrackClick ngxPianoActionType="ACTION" ngxPianoClickName="some_action">Add Action</button>
-      <button data-testid="send-custom-event-service-call" (click)="sendCustomEventWithService()">Send custom event with service
-        call
+      <button ngxPianoTrackClick ngxPianoActionType="DOWNLOAD" ngxPianoClickName="pdf">Add Download Action</button>
+      <button data-testid="send-custom-event-service-call" (click)="sendCustomEventWithService()">
+        Send custom event with service call
+      </button>
+      <button data-testid="set-not-persistent-property-service-call" (click)="setNotPersistentPropertyWithService()">
+        Set not persistent piano property with service
+      </button>
+      <button data-testid="set-persistent-property-service-call" (click)="setPersistentPropertyWithService()">
+        Set persistent piano property with service
       </button>
     `,
     styles: [`
@@ -27,6 +34,17 @@ export class TestComponent {
   sendCustomEventWithService() {
     this.pianoTracker.sendEvent("search.value", {
       value: "some_value"
+    })
+  }
+
+  setNotPersistentPropertyWithService() {
+    this.pianoTracker.setProperty("property_name", "value");
+  }
+
+  setPersistentPropertyWithService() {
+    this.pianoTracker.setProperty("property_name", "value", {
+      persistent: true,
+      forEvents: ["click.download"]
     })
   }
 }

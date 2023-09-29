@@ -93,6 +93,61 @@ export class YourComponent {
 }
 ```
 
+### Tracking some properties
+
+You can add some properties to subsequent events, by using a specific method of `PianoTracker` service.
+⚠️ [Custom properties are defined in your Data Model](https://management.atinternet-solutions.com/#/data-model/properties/list). Refer to it to be able to know which properties you can provide
+
+Imagine you have these properties in your data model: 
+- `user_logged`: `string`
+
+You can track these properties throw your events you send to your Piano collect domain.
+
+_Example_
+```ts
+import { NgxPianoService } from 'ngx-piano';
+
+@Component({
+  selector: 'your-login-component',
+  template: '<button (click)="trackProperties()">Track Properties</button>',
+})
+export class YourLoginComponent {
+  constructor(private pianoService: NgxPianoService, private yourAuthenticationService: YourAuthenticationService) {}
+
+  async trackProperties() {
+      await this.yourAuthenticationService.login(); 
+      const userProperties = {
+        user_logged: true,
+      };
+  
+      this.pianoService.setProperty("user_logged", true, {
+        persistent: true, // Set a property to next event which will be sent and to all subsequent events
+      });
+  }
+}
+```
+
+#### Use-case
+- Set a property to next event which will be sent
+  ```ts 
+  pianoTracker.setProperty("property_name", "property_value");
+  ```
+
+- Set a property to next event which will be sent and to all subsequent events
+  ```ts 
+  pianoTracker.setProperty("property_name", "property_value", { persistent: true });
+  ```
+
+- Set a property to next event which will be sent and to all subsequent events of type `page.display`
+  ```ts
+  pianoTracker.setProperty("property_name", "property_value", { persistent: true, forEvents: "page.display" });
+  ```
+
+- Set a property to next event which will be sent and to all subsequent events of type `page.display` and `click.action`
+  ```ts
+  pianoTracker.setProperty("property_name", "property_value", { persistent: true, forEvents: ["page.display", "click.action"] });
+  ```
+
 ## FAQ
 ### How to handle multi NgxPianoConfiguration in your app module ?
 
@@ -162,6 +217,9 @@ You sent a custom event, the request was well send, but you don't retrieve your 
 
 [Check if you have these custom event on your Data Model](https://management.atinternet-solutions.com/#/data-model/events/list/). If not, your event appears in `Events` section on the tab `Excluded Events` on your collect explorer site.
 
+### What happened if the same property key is defined both with the `setProperty(...)` and the `properties` param in an `sendEvent(...)` method call
+
+The value defined in the `setProperty(...)` method override the value defined in properties param of `sendEvent(...)` method
 
 ## Contributing
 
