@@ -2,6 +2,10 @@
 
 This library aims to provide an integration for the Piano Analytics product into Angular applications.
 
+## Prerequisite
+
+This library is only compatible with the Angular 16.x.x version and above, make sure to update your project with the following [Angular guide](https://update.angular.io/) 
+
 ## Installation
 
 - Run `npm install @sncf/ngx-piano`
@@ -30,12 +34,12 @@ export class AppModule {
 ## Usage
 
 ### Tracking page view
-By importing `NgxPianoModule`, the different routes are automatically track. When `NgxPianoModule` bootstrapping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). These event is triggered when a navigation ends successfully.
+By importing `NgxPianoModule`, the different routes are automatically tracked. When `NgxPianoModule` is bootstrapping, we subscribe to `RouteEvent` of type [NavigationEnd](https://angular.io/api/router/NavigationEnd). This event is triggered when a navigation ends successfully.
 
 #### Adding info to the page view
 #### Using route data
 
-You can add info to the page view by using the `data` property of the route.
+You can add info to the page view by using the `data` property of the route.  
 💡By defining `ngxPianoRouteData` as a property of the route data, it is not anymore the URL that is sent as page title but the value of the property `page` of the `ngxPianoRouteData` object.
 
 ```ts
@@ -82,12 +86,12 @@ A directive exists for catching click's event named `ngxPianoTrackClick`. You ca
 
 You can track custom events by using the `NgxPianoService` and it's `sendEvent(...)` method.
 
-- Inject `NgxPianoService` into your component
-- Call the `sendEvent(...)` method of `NgxPianoService` with the event type you want to track and the event data 
+- Inject `PianoTracker` into your component
+- Call the `sendEvent(...)` method of `PianoTracker` with the event type you want to track and the event data 
 
 ```ts
 import {
-    NgxPianoService,
+    PianoTracker,
     NgxPianoEventType
 } from 'ngx-piano';
 
@@ -99,18 +103,18 @@ import {
     styleUrls: ['./your-component.component.scss']
 })
 export class YourComponent {
-    constructor(private pianoService: NgxPianoService) {
+    constructor(private pianoTracker: PianoTracker) {
     }
 
     /**
-     * You can track custom events by using the NgxPianoService and it's trackEvent method
+     * You can track custom events by using the PianoTracker and its trackEvent method
      * @param event - The blur event
      */
     onSearchBlur(event: FocusEvent) {
         const input = event.target as HTMLInputElement;
 
         const customNgxPianoEventType: NgxPianoEventType = "search.value"; // custom event type, not a standard event type => ⚠️MUST BE DEFINED IN YOUR DATA MODEL⚠️
-        this.pianoService.sendEvent(customNgxPianoEventType, {
+        this.pianoTracker.sendEvent(customNgxPianoEventType, {
             name: input.name,
             value: input.value
         });
@@ -130,14 +134,14 @@ You can track these properties throw your events you send to your Piano collect 
 
 _Example_
 ```ts
-import { NgxPianoService } from 'ngx-piano';
+import { PianoTracker } from 'ngx-piano';
 
 @Component({
   selector: 'your-login-component',
   template: '<button (click)="trackProperties()">Track Properties</button>',
 })
 export class YourLoginComponent {
-  constructor(private pianoService: NgxPianoService, private yourAuthenticationService: YourAuthenticationService) {}
+  constructor(private pianoTracker: PianoTracker, private yourAuthenticationService: YourAuthenticationService) {}
 
   async trackProperties() {
       await this.yourAuthenticationService.login(); 
@@ -145,7 +149,7 @@ export class YourLoginComponent {
         user_logged: true,
       };
   
-      this.pianoService.setProperty("user_logged", true, {
+      this.pianoTracker.setProperty("user_logged", true, {
         persistent: true, // Set a property to next event which will be sent and to all subsequent events
       });
   }
@@ -244,11 +248,11 @@ You sent a custom event, the request was well send, but you don't retrieve your 
 
 ### What happened if the same property key is defined both with the `setProperty(...)` and the `properties` param in an `sendEvent(...)` method call
 
-The value defined in the `setProperty(...)` method override the value defined in properties param of `sendEvent(...)` method
+The value defined in the `setProperty(...)` method overrides the value defined in properties param of the `sendEvent(...)` method
 
 ### I host my own Piano script, how to provide it to the library ?
 
-If you host your own Piano script, you can provide it to the library by using the `pianoScriptUrl` option of NgxPianoModule configuration.
+If you host your own Piano script, you can provide it to the library by using the `pianoScriptUrl` option of NgxPianoModule configuration.  
 By default, the library will use the last version of Piano script hosted by Piano.
 
 ```ts
