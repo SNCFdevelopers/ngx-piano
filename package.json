@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:example": "ng serve --project ngx-piano-example",
-    "build": "ng build --configuration production --project ngx-piano",
+    "build": "copyfiles README.md projects/ngx-piano/ && ng build --configuration production --project ngx-piano",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -37,6 +37,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^16.2.0",
-    "typescript": "~5.1.3"
+    "typescript": "~5.1.3",
+    "copyfiles": "2.4.1"
   }
 }

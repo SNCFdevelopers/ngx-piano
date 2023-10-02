@@ -78,12 +78,12 @@ A directive exists for catching click's event named `ngxPianoTrackClick`. You ca
 
 [Two types of events exist](https://support.piano.io/hc/fr/articles/4465959709202-%C3%89v%C3%A9nements#Cr%C3%A9erun%C3%A9v%C3%A9nement:~:text=Standard%20%26%20Custom,%C3%A0%20votre%20organisation.):
 - standard which are defined by Piano (`page.display`, `click.action`, `click.download`, ...)
-- custom which are specific events that you have in your Data Model
+- custom which are specific events that you have in your Data Model 
 
 You can track custom events by using the `NgxPianoService` and it's `sendEvent(...)` method.
 
 - Inject `NgxPianoService` into your component
-- Call the `sendEvent(...)` method of `NgxPianoService` with the event type you want to track and the event data
+- Call the `sendEvent(...)` method of `NgxPianoService` with the event type you want to track and the event data 
 
 ```ts
 import {
@@ -123,7 +123,7 @@ export class YourComponent {
 You can add some properties to subsequent events, by using a specific method of `PianoTracker` service.
 ⚠️ [Custom properties are defined in your Data Model](https://management.atinternet-solutions.com/#/data-model/properties/list). Refer to it to be able to know which properties you can provide
 
-Imagine you have these properties in your data model:
+Imagine you have these properties in your data model: 
 - `user_logged`: `string`
 
 You can track these properties throw your events you send to your Piano collect domain.
