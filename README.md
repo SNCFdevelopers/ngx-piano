@@ -194,7 +194,7 @@ const configProd: NgxPianoConfiguration = {
   collectDomain: 'collect-domain'
 }
 
-const configToUse: NgxPianoConfiguration = isProduction ? configProd : configHorsProd;
+const configToUse: NgxPianoConfiguration = isProduction ? configProd : configNonProd;
 
 @NgModule({
   imports: [
