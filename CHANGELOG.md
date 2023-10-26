@@ -30,11 +30,11 @@ for any bug fixes.
 
 in case of vulnerabilities.
 
-## 1.0.0
+## [1.0.0] - 2023-10-26
 
 First stable version of the library.
 
-## 1.0.0-rc.0
+## [1.0.0-rc.0] - 2023-09-29
 
 ### Added
 
