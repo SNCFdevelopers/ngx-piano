@@ -30,6 +30,10 @@ for any bug fixes.
 
 in case of vulnerabilities.
 
+## 1.0.0
+
+First stable version of the library.
+
 ## 1.0.0-rc.0
 
 ### Added
