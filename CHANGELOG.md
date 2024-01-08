@@ -24,7 +24,7 @@ for now removed features.
 
 ### Fixed
 
-for any bug fixes.
+- Client app did not load correctly when the PianoJS script was inserted into the body, despite an initial script being located in the head tag. Now, we insert the PianoJS script as the last child element of the head element, [as recommended by PianoJS](https://developers.atinternet-solutions.com/piano-analytics/data-collection/sdks/javascript)
 
 ### Security
 
