@@ -1,6 +1,6 @@
 {
   "name": "@sncf/ngx-piano",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This library aims to provide an integration for the Piano Analytics product into Angular applications",
   "keywords": [
     "piano-analytics",

@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
 ### Added
 
 for new features.
@@ -24,11 +25,17 @@ for now removed features.
 
 ### Fixed
 
-- Client app did not load correctly when the PianoJS script was inserted into the body, despite an initial script being located in the head tag. Now, we insert the PianoJS script as the last child element of the head element, [as recommended by PianoJS](https://developers.atinternet-solutions.com/piano-analytics/data-collection/sdks/javascript)
+for any bug fixes.
 
 ### Security
 
 in case of vulnerabilities.
+
+## [1.0.1] - 2024-01-10
+
+### Fixed
+
+- Client app did not load correctly when the PianoJS script was inserted into the body, despite an initial script being located in the head tag. Now, we insert the PianoJS script as the last child element of the head element, [as recommended by PianoJS](https://developers.atinternet-solutions.com/piano-analytics/data-collection/sdks/javascript)
 
 ## [1.0.0] - 2023-10-26
 
