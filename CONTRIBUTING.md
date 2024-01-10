@@ -13,7 +13,7 @@
     ```
 5. Create a tag
     ```shell
-    git tag vX.X.X
+    git tag -a vX.X.X -m "vX.X.X"
     ```
 6. Push the changes
     ```shell
