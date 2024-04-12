@@ -9,7 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-for new features.
+- Add support for Angular 17 (change the minimum version of Angular to >=16)
 
 ### Changed
 
