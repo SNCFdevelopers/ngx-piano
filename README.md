@@ -1,10 +1,16 @@
-# NgxPiano
+# NgxPiano [![pipeline](https://img.shields.io/gitlab/pipeline-status/SNCF%2Fngx-piano?branch=master)](https://gitlab.com/SNCF/ngx-piano/-/pipelines?page=1&scope=branches&ref=master) [![npm version](https://img.shields.io/npm/v/@sncf/ngx-piano.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen)](https://www.npmjs.com/package/@sncf/ngx-piano)
 
 This library aims to provide an integration for the Piano Analytics product into Angular applications.
 
 ## Prerequisite
 
-This library is only compatible with the Angular 16.x.x version and above, make sure to update your project with the following [Angular guide](https://update.angular.io/) 
+This library is only compatible with the Angular 16.x.x version and above, make sure to update your project with the following [Angular guide](https://update.angular.io/)
+
+### Angular version compatibility
+
+| Angular version | NgxPiano version |
+|-----------------|------------------|
+| `Angular >= 16` | `1.x.x`          |
 
 ## Installation
 
